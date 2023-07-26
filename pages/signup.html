@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>SignupPage</title>
+	<style>
+		body {
+			background-color: #fff;
+			background-size: cover;
+			align-items: center;
+			justify-content: center;
+			display: flex;
+			font-family: 'Poppins',sans-serif;
+			padding: 0;
+			margin: 0;
+		}
+
+		.container {
+			position: relative;
+			margin-top: 130px;
+			width: 400px;
+			height: auto;
+			background: #fff;
+			border-radius: 8px;
+            box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+
+		}
+
+		.label {
+			padding: 20px 90px;
+			font-size: 35px;
+			font-weight: bold;
+			color: #130f40;
+            margin-bottom: auto;
+		}
+
+		.signup_form {
+			padding: 10px 40px;
+		}
+
+		.signup_form .font {
+			font-size: 18px;
+			color: #130f40;
+			margin: 5px 0;
+		}
+
+        .signup_form input{
+            height: 40px;
+            width: 300px;
+            outline: none;
+            padding-left: 15px;
+            border-radius: 5px;
+            border: 1px solid lightgrey;
+            border-bottom-width: 2px;
+            font-size: 17px;
+            transition: all 0.3s ease;
+        }
+
+		
+		.signup_form input:focus{
+            border-color: #736cec;
+        }
+		.signup_form .font{
+            height: 50px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+		.signup_form button {
+			margin: 20px 0 25px 0;
+			height: 45px;
+			width: 100%;
+			font-size: 20px;
+			color: rgb(245, 245, 248);
+			outline: none;
+			cursor: pointer;
+			font-weight: bold;
+			background: #3b47cb;
+			border-radius: 3px;
+			border: 1px solid #3949AB;
+			transition: .5s;
+		}
+
+		.signup_form button:hover {
+			background:-webkit-linear-gradient(left, #718af7, #577df0);
+		}
+
+		.signup_form #email_error,
+		.signup_form #uname_error,
+		.signup_form #pass_error {
+			margin-top: 5px;
+			width: 345px;
+			font-size: 18px;
+			color: #C62828;
+			background: rgba(255,0,0,0.1);
+			text-align: center;
+			padding: 5px 8px;
+			border-radius: 3px;
+			border: 1px solid #EF9A9A;
+			display: none;
+		}
+	</style>
+
+	<script>
+		var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+$.ajax({
+  url: '/your-url/',
+  type: 'POST',
+  headers: {
+    'X-CSRFToken': csrftoken
+  },
+  // other options and data
+});
+		function validated() {
+			var email = document.forms["form"]["e-mail"].value;
+			var password = document.forms["form"]["password"].value;
+			var uname=document.forms["form"]["uname"].value;
+
+			// Email validation regex pattern
+			var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+			if (!emailPattern.test(email)) {
+				document.getElementById("email_error").style.display = "block";
+				return false;
+			}
+
+			if (password === "") {
+				document.getElementById("pass_error").style.display = "block";
+				return false;
+			}
+
+			if (uname === "") {
+				document.getElementById("uname_error").style.display = "block";
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+
+		<h1 class="label">SignUp Form</h1>
+		<form class="signup_form" method="POST" name="form" onsubmit="return validated()">
+			<div class="font"><input type="text" placeholder="User Name" required></div>
+			<div id="uname_error">Please fill up your Username</div>
+			<div class="font"><input type="text" placeholder="Email Address" required></div>
+			<div id="email_error">Please fill up your E-mail in Correct Format</div>
+			<div class="font"><input type="password" placeholder="Password" required></div>
+			<div id="pass_error">Please fill up your Password</div>
+			<button type="submit">Sign Up</button>
+			<a href="login.html">I already have an account.</a><br><br>
+		</form>
+	</div>
+</body>
+</html>
